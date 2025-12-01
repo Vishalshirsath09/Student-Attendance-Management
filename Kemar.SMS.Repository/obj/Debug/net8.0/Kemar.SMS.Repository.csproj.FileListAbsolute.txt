@@ -1,0 +1,15 @@
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\bin\Debug\net8.0\Kemar.SMS.Repository.deps.json
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\bin\Debug\net8.0\Kemar.SMS.Repository.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\bin\Debug\net8.0\Kemar.SMS.Repository.pdb
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\bin\Debug\net8.0\Kemar.SMS.Model.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\bin\Debug\net8.0\Kemar.SMS.Model.pdb
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\Kemar.SMS.Repository.csproj.AssemblyReference.cache
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\Kemar.SMS.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\Kemar.SMS.Repository.AssemblyInfoInputs.cache
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\Kemar.SMS.Repository.AssemblyInfo.cs
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\Kemar.SMS.Repository.csproj.CoreCompileInputs.cache
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\Kemar.SM.7339E210.Up2Date
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\Kemar.SMS.Repository.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\refint\Kemar.SMS.Repository.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\Kemar.SMS.Repository.pdb
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Repository\obj\Debug\net8.0\ref\Kemar.SMS.Repository.dll

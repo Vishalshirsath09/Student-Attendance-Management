@@ -1,0 +1,6 @@
+@Kemar.SMS.API_HostAddress = http://localhost:5263
+
+GET {{Kemar.SMS.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

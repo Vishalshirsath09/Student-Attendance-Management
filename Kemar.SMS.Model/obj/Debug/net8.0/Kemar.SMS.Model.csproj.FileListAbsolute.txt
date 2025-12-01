@@ -1,0 +1,12 @@
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\bin\Debug\net8.0\Kemar.SMS.Model.deps.json
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\bin\Debug\net8.0\Kemar.SMS.Model.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\bin\Debug\net8.0\Kemar.SMS.Model.pdb
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\obj\Debug\net8.0\Kemar.SMS.Model.csproj.AssemblyReference.cache
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\obj\Debug\net8.0\Kemar.SMS.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\obj\Debug\net8.0\Kemar.SMS.Model.AssemblyInfoInputs.cache
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\obj\Debug\net8.0\Kemar.SMS.Model.AssemblyInfo.cs
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\obj\Debug\net8.0\Kemar.SMS.Model.csproj.CoreCompileInputs.cache
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\obj\Debug\net8.0\Kemar.SMS.Model.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\obj\Debug\net8.0\refint\Kemar.SMS.Model.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\obj\Debug\net8.0\Kemar.SMS.Model.pdb
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Model\obj\Debug\net8.0\ref\Kemar.SMS.Model.dll

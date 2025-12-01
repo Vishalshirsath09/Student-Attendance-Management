@@ -1,0 +1,362 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Kemar.SMS.API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Student": {
+      "post": {
+        "tags": [
+          "Student"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Student/GetAllStudents": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Student/GetStudentById/{id}": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Student/UpdateStudent/{id}": {
+      "put": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Student/RemoveStudent/{id}": {
+      "delete": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Teacher/CreateTeacher": {
+      "post": {
+        "tags": [
+          "Teacher"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Teacher/GetAllTeachers": {
+      "get": {
+        "tags": [
+          "Teacher"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Teacher/GetStudentById/{id}": {
+      "get": {
+        "tags": [
+          "Teacher"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Teacher/UpdateTeacher/{id}": {
+      "put": {
+        "tags": [
+          "Teacher"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Teacher/RemoveTeacher/{id}": {
+      "delete": {
+        "tags": [
+          "Teacher"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "StudentRequest": {
+        "required": [
+          "address",
+          "class",
+          "div",
+          "phoneNo",
+          "rollno",
+          "studentName"
+        ],
+        "type": "object",
+        "properties": {
+          "studentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "studentName": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "rollno": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "class": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "div": {
+            "maxLength": 5,
+            "minLength": 1,
+            "type": "string"
+          },
+          "phoneNo": {
+            "maxLength": 15,
+            "minLength": 1,
+            "type": "string"
+          },
+          "address": {
+            "maxLength": 250,
+            "minLength": 1,
+            "type": "string"
+          },
+          "emailAddress": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TeacherRequest": {
+        "required": [
+          "address",
+          "phoneNo",
+          "teacherName"
+        ],
+        "type": "object",
+        "properties": {
+          "teacherId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "teacherName": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "phoneNo": {
+            "maxLength": 15,
+            "minLength": 1,
+            "type": "string"
+          },
+          "address": {
+            "maxLength": 250,
+            "minLength": 1,
+            "type": "string"
+          },
+          "emailAddress": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

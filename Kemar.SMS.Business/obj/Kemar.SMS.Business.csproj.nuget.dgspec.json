@@ -1,0 +1,255 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Business\\Kemar.SMS.Business.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Business\\Kemar.SMS.Business.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Business\\Kemar.SMS.Business.csproj",
+        "projectName": "Kemar.SMS.Business",
+        "projectPath": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Business\\Kemar.SMS.Business.csproj",
+        "packagesPath": "C:\\Users\\Vishal Shirsath\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Business\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Vishal Shirsath\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Model\\Kemar.SMS.Model.csproj": {
+                "projectPath": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Model\\Kemar.SMS.Model.csproj"
+              },
+              "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Repository\\Kemar.SMS.Repository.csproj": {
+                "projectPath": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Repository\\Kemar.SMS.Repository.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Model\\Kemar.SMS.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Model\\Kemar.SMS.Model.csproj",
+        "projectName": "Kemar.SMS.Model",
+        "projectPath": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Model\\Kemar.SMS.Model.csproj",
+        "packagesPath": "C:\\Users\\Vishal Shirsath\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Vishal Shirsath\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Repository\\Kemar.SMS.Repository.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Repository\\Kemar.SMS.Repository.csproj",
+        "projectName": "Kemar.SMS.Repository",
+        "projectPath": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Repository\\Kemar.SMS.Repository.csproj",
+        "packagesPath": "C:\\Users\\Vishal Shirsath\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Repository\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Vishal Shirsath\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Model\\Kemar.SMS.Model.csproj": {
+                "projectPath": "C:\\Users\\Vishal Shirsath\\Desktop\\KemarStudentManagement\\Kemar.SMS.API\\Kemar.SMS.Model\\Kemar.SMS.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
