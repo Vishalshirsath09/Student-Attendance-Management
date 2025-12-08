@@ -1,0 +1,17 @@
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\bin\Debug\net8.0\Kemar.SMS.Business.deps.json
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\bin\Debug\net8.0\Kemar.SMS.Business.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\bin\Debug\net8.0\Kemar.SMS.Business.pdb
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\bin\Debug\net8.0\Kemar.SMS.Model.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\bin\Debug\net8.0\Kemar.SMS.Repository.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\bin\Debug\net8.0\Kemar.SMS.Model.pdb
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\bin\Debug\net8.0\Kemar.SMS.Repository.pdb
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\Kemar.SMS.Business.csproj.AssemblyReference.cache
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\Kemar.SMS.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\Kemar.SMS.Business.AssemblyInfoInputs.cache
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\Kemar.SMS.Business.AssemblyInfo.cs
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\Kemar.SMS.Business.csproj.CoreCompileInputs.cache
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\Kemar.SM.D61CEA43.Up2Date
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\Kemar.SMS.Business.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\refint\Kemar.SMS.Business.dll
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\Kemar.SMS.Business.pdb
+C:\Users\Vishal Shirsath\Desktop\KemarStudentManagement\Kemar.SMS.API\Kemar.SMS.Business\obj\Debug\net8.0\ref\Kemar.SMS.Business.dll
