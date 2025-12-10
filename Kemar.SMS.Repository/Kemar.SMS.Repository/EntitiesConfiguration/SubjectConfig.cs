@@ -13,7 +13,8 @@ namespace Kemar.SMS.Repository.EntitiesConfiguration
             builder.HasKey(x => x.SubjectId);
             builder.Property(x => x.SubjectId).ValueGeneratedOnAdd();
             builder.Property(x => x.SubjectName).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.SubjectCode).IsRequired().HasMaxLength(20);
+            builder.Property(x => x.SubjectCode).IsRequired().HasMaxLength(10);
+
             builder.HasOne(s => s.Teacher)
                    .WithMany(t => t.Subjects)
                    .HasForeignKey(s => s.TeacherId)

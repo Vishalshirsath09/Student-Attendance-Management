@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Kemar.SMS.Model.Common;
 using Kemar.SMS.Model.Request;
 using Kemar.SMS.Model.Response;
 using Kemar.SMS.Repository.Context;
@@ -18,78 +19,83 @@ namespace Kemar.SMS.Repository.Repositories.SubjectRepo
             _mapper = mapper;
         }
 
-        public async Task<SubjectResponse> CreateAsync(SubjectRequest request)
+        public async Task<ResultModel> AddOrUpdateAsync(SubjectRequest request)
         {
-            var subject = _mapper.Map<Subject>(request);
+            try
+            {
+                if (request.SubjectId == 0)
+                {
+                    var subject = _mapper.Map<Subject>(request);
+                    subject.CreatedAt = DateTime.UtcNow;
+                    subject.IsActive = true;
+                    subject.CreatedBy = request.CreatedBy;
 
-            subject.CreatedBy = "System";
-            subject.CreatedAt = DateTime.UtcNow;
-            subject.UpdatedBy = "System";
-            subject.UpdatedAt = DateTime.UtcNow;
-            subject.IsActive = true;
+                    _context.Subjects.Add(subject);
+                    await _context.SaveChangesAsync();
 
-            await _context.Subjects.AddAsync(subject);
-            await _context.SaveChangesAsync();
+                    return ResultModel.Created(_mapper.Map<SubjectResponse>(subject));
+                }
 
-            return _mapper.Map<SubjectResponse>(subject);
+                var existing = await _context.Subjects
+                    .FirstOrDefaultAsync(s => s.SubjectId == request.SubjectId && s.IsActive);
+
+                if (existing == null)
+                    return ResultModel.NotFound("Subject not found");
+
+                existing.SubjectName = request.SubjectName;
+                existing.SubjectCode = request.SubjectCode;
+                existing.TeacherId = request.TeacherId;
+                existing.UpdatedAt = DateTime.UtcNow;
+                existing.UpdatedBy = request.UpdatedBy; // <-- Set from controller
+
+                await _context.SaveChangesAsync();
+                return ResultModel.Updated(_mapper.Map<SubjectResponse>(existing));
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public async Task<IEnumerable<SubjectResponse>> GetAllAsync()
-        {
-            var subjects = await _context.Subjects
-                                         .Where(x => x.IsActive == true)
-                                         .ToListAsync();
-
-            return _mapper.Map<IEnumerable<SubjectResponse>>(subjects);
-        }
-
-        public async Task<SubjectResponse?> GetByIdAsync(int id)
+        public async Task<ResultModel> GetByIdAsync(int id)
         {
             var subject = await _context.Subjects
-                                        .FirstOrDefaultAsync(x =>
-                                             x.SubjectId == id && x.IsActive == true);
-
-            return subject == null ? null : _mapper.Map<SubjectResponse>(subject);
-        }
-
-        public async Task<SubjectResponse?> UpdateAsync(int id, SubjectRequest request)
-        {
-            var existingSubject = await _context.Subjects
-                .FirstOrDefaultAsync(x =>
-                 x.SubjectId == id && x.IsActive == true);
-
-            if (existingSubject == null)
-                return null;
-
-            _mapper.Map(request, existingSubject);
-
-            existingSubject.UpdatedBy = "System";
-            existingSubject.UpdatedAt = DateTime.UtcNow;
-
-            _context.Subjects.Update(existingSubject);
-            await _context.SaveChangesAsync();
-
-            return _mapper.Map<SubjectResponse>(existingSubject);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var subject = await _context.Subjects
-                                        .FirstOrDefaultAsync(x =>
-                                             x.SubjectId == id && x.IsActive == true);
+                .FirstOrDefaultAsync(s => s.SubjectId == id && s.IsActive);
 
             if (subject == null)
-                return false;
+                return ResultModel.NotFound("Subject not found");
+
+            return ResultModel.Success(_mapper.Map<SubjectResponse>(subject));
+        }
+
+        public async Task<ResultModel> GetByFilterAsync(string? subjectName, string? subjectCode)
+        {
+            var query = _context.Subjects.Where(s => s.IsActive);
+
+            if (!string.IsNullOrWhiteSpace(subjectName))
+                query = query.Where(s => s.SubjectName.Contains(subjectName));
+
+            if (!string.IsNullOrWhiteSpace(subjectCode))
+                query = query.Where(s => s.SubjectCode == subjectCode);
+
+            var subjects = await query.ToListAsync();
+            return ResultModel.Success(_mapper.Map<List<SubjectResponse>>(subjects));
+        }
+
+        public async Task<ResultModel> DeleteByIdAsync(int id)
+        {
+            var subject = await _context.Subjects
+                .FirstOrDefaultAsync(s => s.SubjectId == id && s.IsActive);
+
+            if (subject == null)
+                return ResultModel.NotFound("Subject not found");
 
             subject.IsActive = false;
             subject.UpdatedAt = DateTime.UtcNow;
-            subject.UpdatedBy = "System";
 
-            _context.Subjects.Update(subject);
             await _context.SaveChangesAsync();
-
-            return true;
+            return ResultModel.Success(null, "Subject deleted successfully");
         }
     }
 }
-

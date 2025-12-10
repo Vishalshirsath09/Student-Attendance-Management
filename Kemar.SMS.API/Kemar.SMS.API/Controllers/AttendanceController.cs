@@ -1,66 +1,67 @@
-﻿//using Kemar.SMS.Business.AttendanceBusiness;
-//using Kemar.SMS.Model.Request;
-//using Microsoft.AspNetCore.Mvc;
+﻿using Kemar.SMS.Business.AttendanceBusiness;
+using Kemar.SMS.Model.Request;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
-//namespace Kemar.SMS.API.Controllers
-//{
-//    [ApiController]
-//    [Route("api/[controller]")]
-//    public class AttendanceController : ControllerBase
-//    {
-//        private readonly IAttendanceService _attendanceService;
+namespace Kemar.SMS.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class AttendanceController : ControllerBase
+    {
+        private readonly IAttendanceService _service;
 
-//        public AttendanceController(IAttendanceService attendanceService)
-//        {
-//            _attendanceService = attendanceService;
-//        }
+        public AttendanceController(IAttendanceService service)
+        {
+            _service = service;
+        }
 
-//        [HttpPost("CreateAttendance")]
-//        public async Task<IActionResult> Create(AttendanceRequest request)
-//        {
-//            if (!ModelState.IsValid)
-//                return BadRequest(ModelState);
+        [Authorize(Roles = "Teacher")]
+        [HttpPost("AddOrUpdate")]
+        public async Task<IActionResult> AddOrUpdate([FromBody] AttendanceRequest request)
+        {
+            
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
+            if (string.IsNullOrEmpty(username))
+                throw new UnauthorizedAccessException("User not found in token");
 
-//            var result = await _attendanceService.CreateAsync(request);
-//            return Ok(result);
-//        }
+            if (request.AttendanceId == 0)
+                request.CreatedBy = username;   
+            else
+                request.UpdatedBy = username; 
 
-//        [HttpGet("GetAllAttendances")]
-//        public async Task<IActionResult> GetAll()
-//        {
-//            var result = await _attendanceService.GetAllAsync();
-//            return Ok(result);
-//        }
+            var result = await _service.AddOrUpdateAsync(request);
+            return CommonHelper.ReturnActionResultByStatus(result, this);
+        }
 
-//        [HttpGet("GetAttendanceById/{id:int}")]
-//        public async Task<IActionResult> GetById(int id)
-//        {
-//            var result = await _attendanceService.GetByIdAsync(id);
-//            if (result == null)
-//                return NotFound("attendance not found");
+        [Authorize(Roles = "HOD,Teacher,Student")]
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var result = await _service.GetByIdAsync(id);
+            return CommonHelper.ReturnActionResultByStatus(result, this);
+        }
 
-//            return Ok(result);
-//        }
+        [Authorize(Roles = "HOD,Teacher")]
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetByFilter([FromQuery] int? studentId, [FromQuery] int? subjectId, [FromQuery] int? teacherId, [FromQuery] DateTime? date)
+        {
+            var result = await _service.GetByFilterAsync(studentId,subjectId,teacherId,date);
+            return CommonHelper.ReturnActionResultByStatus(result, this);
+        }
 
-//        [HttpPut("UpdateAttendance/{id:int}")]
-//        public async Task<IActionResult> Update(int id, AttendanceRequest request)
-//        {
-//            var result = await _attendanceService.UpdateAsync(id, request);
-//            if (result == null)
-//                return NotFound("attendance not found");
+        [Authorize(Roles = "HOD,Teacher")]
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteById(int id)
+        {
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
+            if (string.IsNullOrEmpty(username))
+                throw new UnauthorizedAccessException("User not found in token");
 
-//            return Ok(result);
-//        }
-
-//        [HttpDelete("RemoveAttendance/{id:int}")]
-//        public async Task<IActionResult> Delete(int id)
-//        {
-//            var result = await _attendanceService.DeleteAsync(id);
-
-//            if (!result)
-//                return NotFound("attendance not found");
-
-//            return Ok("attendance deleted successfully");
-//        }
-//    }
-//}
+            var result = await _service.DeleteByIdAsync(id);
+            return CommonHelper.ReturnActionResultByStatus(result, this);
+        }
+    }
+}

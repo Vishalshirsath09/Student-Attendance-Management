@@ -34,10 +34,18 @@ namespace Kemar.SMS.API.Helper
             #endregion
 
             #region Teacher
+
             CreateMap<TeacherRequest, Teacher>()
-                .ForMember(dest => dest.TeacherId, opt => opt.Ignore());
+                .ForMember(dest => dest.TeacherId, opt => opt.Ignore())  
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
+
             CreateMap<Teacher, TeacherResponse>();
+
             #endregion
+
 
             #region Subject
             CreateMap<SubjectRequest, Subject>()
@@ -46,14 +54,14 @@ namespace Kemar.SMS.API.Helper
             #endregion
 
             #region Attendance
-            //CreateMap<AttendanceRequest, Attendance>()
-            //    .ForMember(dest => dest.AttendanceId, opt => opt.Ignore());
+            CreateMap<AttendanceRequest, Attendance>()
+                .ForMember(dest => dest.AttendanceId, opt => opt.Ignore());
 
-            //CreateMap<Attendance, AttendanceResponse>()
-            //    .ForMember(dest => dest.SubjectName,
-            //        opt => opt.MapFrom(src => src.Subject!.SubjectName))
-            //    .ForMember(dest => dest.TeacherName,
-            //        opt => opt.MapFrom(src => src.Subject!.TeacherName));
+            CreateMap<Attendance, AttendanceResponse>()
+                .ForMember(dest => dest.SubjectName,
+                    opt => opt.MapFrom(src => src.Subject!.SubjectName))
+                .ForMember(dest => dest.TeacherName,
+                    opt => opt.MapFrom(src => src.Subject!.Teacher));
             #endregion
         }
     }

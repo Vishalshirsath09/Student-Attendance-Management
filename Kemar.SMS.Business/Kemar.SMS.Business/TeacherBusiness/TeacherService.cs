@@ -19,28 +19,10 @@ namespace Kemar.SMS.Business.TeacherBusiness
 
         public async Task<ResultModel> AddOrUpdateAsync(TeacherRequest request)
         {
-            // Fetch the Username from User table using UserId
-            var user = await _context.Users
-                        .Where(x => x.UserId == request.UserId && x.IsActive)
-                        .Select(x => x.Username)
-                        .FirstOrDefaultAsync();
-
-            if (user == null)
-                return ResultModel.NotFound("Invalid UserId");
-
-            if (request.TeacherId == 0)
-            {
-                // NEW student
-                request.CreatedBy = user;
-                request.UpdatedBy = null;
-            }
-            else
-            {
-                request.UpdatedBy = user;
-            }
-
+        
             return await _repository.AddOrUpdateAsync(request);
         }
+
 
         public async Task<ResultModel> GetByIdAsync(int id)
         {

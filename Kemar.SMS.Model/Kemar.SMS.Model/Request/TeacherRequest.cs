@@ -24,7 +24,12 @@ namespace Kemar.SMS.Model.Request
 
         [MaxLength(100)]
         public string? EmailAddress { get; set; }
+        
+        [MaxLength(100)]
+        public string Qualification { get; set; }
 
+        [MaxLength(20)]
+        public decimal Experience { get; set; }
     }
 
 }

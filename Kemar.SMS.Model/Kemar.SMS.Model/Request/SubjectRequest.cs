@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Kemar.SMS.Model.Response.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace Kemar.SMS.Model.Request
 {
-    public class SubjectRequest
+    public class SubjectRequest : CommonResponse
     {
         public int SubjectId { get; set; }
-
-        [Required]
-        public int TeacherId { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -18,7 +16,6 @@ namespace Kemar.SMS.Model.Request
         public string SubjectCode { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string TeacherName { get; set; }
+        public int TeacherId { get; set; }
     }
 }

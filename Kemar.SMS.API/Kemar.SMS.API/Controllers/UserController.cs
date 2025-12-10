@@ -2,11 +2,13 @@
 using Kemar.SMS.Model.Request;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Kemar.SMS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -15,14 +17,24 @@ namespace Kemar.SMS.API.Controllers
         {
             _service = service;
         }
-        [Authorize(Roles = "HOD")]
+
+        [AllowAnonymous]
         [HttpPost("AddOrUpdate")]
         public async Task<IActionResult> AddOrUpdate([FromBody] UserRequest request)
         {
+            var loggedInUser = HttpContext.User.Identity?.Name
+                               ?? HttpContext.User.FindFirst("username")?.Value
+                               ?? HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
+
+            request.CreatedBy = loggedInUser;
+            request.UpdatedBy = loggedInUser;
+
             var result = await _service.AddOrUpdateAsync(request);
+
             return CommonHelper.ReturnActionResultByStatus(result, this);
         }
 
+        [Authorize(Roles = "HOD")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -30,6 +42,7 @@ namespace Kemar.SMS.API.Controllers
             return CommonHelper.ReturnActionResultByStatus(result, this);
         }
 
+        [Authorize(Roles = "HOD")]
         [HttpGet("filter")]
         public async Task<IActionResult> GetByFilter(string? username, string? role)
         {
@@ -37,6 +50,7 @@ namespace Kemar.SMS.API.Controllers
             return CommonHelper.ReturnActionResultByStatus(result, this);
         }
 
+        [Authorize(Roles = "HOD")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteById(int id)
         {
@@ -44,6 +58,7 @@ namespace Kemar.SMS.API.Controllers
             return CommonHelper.ReturnActionResultByStatus(result, this);
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {

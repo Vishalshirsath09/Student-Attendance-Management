@@ -1,9 +1,11 @@
 using Kemar.SMS.API.Helper;
+using Kemar.SMS.Business.AttendanceBusiness;
 using Kemar.SMS.Business.StudentBusiness;
 using Kemar.SMS.Business.SubjectBusiness;
 using Kemar.SMS.Business.TeacherBusiness;
 using Kemar.SMS.Business.UserBusiness;
 using Kemar.SMS.Repository.Context;
+using Kemar.SMS.Repository.Repositories.AttendanceRepo;
 using Kemar.SMS.Repository.Repositories.StudentRepo;
 using Kemar.SMS.Repository.Repositories.SubjectRepo;
 using Kemar.SMS.Repository.Repositories.TeacherRepo;
@@ -29,6 +31,8 @@ builder.Services.AddScoped<ITeacher, TeacherRespository>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<ISubject, SubjectRepository>();
 builder.Services.AddScoped<ISubjectService, SubjectService>();
+builder.Services.AddScoped<IAttendance, AttendanceRepository>();
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddControllers();

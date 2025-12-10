@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Kemar.SMS.Model.Response.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace Kemar.SMS.Model.Request
 {
-    public  class AttendanceRequest
+    public class AttendanceRequest : CommonResponse
     {
         public int AttendanceId { get; set; }
 
@@ -15,10 +16,8 @@ namespace Kemar.SMS.Model.Request
         [Required]
         public int TeacherId { get; set; }
 
-        public DateTime? AttendanceDate { get; set; }
-
         [Required]
         public bool IsPresent { get; set; }
-
+        public DateTime? AttendanceDate { get; set; } = DateTime.UtcNow;
     }
 }

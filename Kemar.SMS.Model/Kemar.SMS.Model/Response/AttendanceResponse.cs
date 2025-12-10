@@ -11,7 +11,7 @@ namespace Kemar.SMS.Model.Response
         public string SubjectName { get; set; }
         public int TeacherId { get; set; }
         public string TeacherName { get; set; }
-        public DateTime AttendanceDate { get; set; }
         public bool IsPresent { get; set; }
+        public DateTime AttendanceDate { get; set; }
     }
 }

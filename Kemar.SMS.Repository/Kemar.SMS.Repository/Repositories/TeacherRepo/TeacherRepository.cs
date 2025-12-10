@@ -52,6 +52,8 @@ namespace Kemar.SMS.Repository.Repositories.TeacherRepo
             existing.Address = request.Address;
             existing.PhoneNo = request.PhoneNo;
             existing.EmailAddress = request.EmailAddress;
+            existing.Qualification = request.Qualification;
+            existing.Experience = request.Experience;
             existing.UpdatedBy = request.UpdatedBy;
             existing.UpdatedAt = DateTime.UtcNow;
 

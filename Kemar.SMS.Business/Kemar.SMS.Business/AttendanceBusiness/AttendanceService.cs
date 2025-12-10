@@ -1,6 +1,7 @@
-﻿using Kemar.SMS.Model.Request;
-using Kemar.SMS.Model.Response;
+﻿using Kemar.SMS.Model.Common;
+using Kemar.SMS.Model.Request;
 using Kemar.SMS.Repository.Repositories.AttendanceRepo;
+
 
 namespace Kemar.SMS.Business.AttendanceBusiness
 {
@@ -13,29 +14,34 @@ namespace Kemar.SMS.Business.AttendanceBusiness
             _repository = repository;
         }
 
-        public async Task<AttendanceResponse> CreateAsync(AttendanceRequest request)
+        public async Task<ResultModel> AddOrUpdateAsync(AttendanceRequest request)
         {
-            return await _repository.CreateAsync(request);
+            // CreatedBy / UpdatedBy already set in Controller
+            if (request.AttendanceId == 0)
+            { 
+            request.IsActive = true;
+                request.CreatedBy = request.CreatedBy;
+            request.CreatedAt = DateTime.UtcNow;
+        }
+            else
+                request.UpdatedAt = DateTime.UtcNow;
+
+            return await _repository.AddOrUpdateAsync(request);
         }
 
-        public async Task<IEnumerable<AttendanceResponse>> GetAllAsync()
-        {
-            return await _repository.GetAllAsync();
-        }
-
-        public async Task<AttendanceResponse?> GetByIdAsync(int id)
+        public async Task<ResultModel> GetByIdAsync(int id)
         {
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task<AttendanceResponse?> UpdateAsync(int id, AttendanceRequest request)
+        public async Task<ResultModel> GetByFilterAsync(int? studentId, int? subjectId, int? teacherId, DateTime? date)
         {
-            return await _repository.UpdateAsync(id, request);
+            return await _repository.GetByFilterAsync(studentId, subjectId,teacherId,date);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<ResultModel> DeleteByIdAsync(int id)
         {
-            return await _repository.DeleteAsync(id);
+            return await _repository.DeleteByIdAsync(id);
         }
     }
 }

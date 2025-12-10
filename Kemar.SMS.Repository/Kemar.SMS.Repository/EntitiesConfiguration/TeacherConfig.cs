@@ -16,6 +16,8 @@ namespace Kemar.SMS.Repository.EntitiesConfiguration
             builder.Property(x => x.Address).HasMaxLength(200);
             builder.Property(x => x.PhoneNo).HasMaxLength(15);
             builder.Property(x => x.EmailAddress).HasMaxLength(150);
+            builder.Property(x => x.Qualification).HasMaxLength(200);
+            builder.Property(x => x.Experience).HasMaxLength(20);
             builder.HasMany(t => t.Subjects)
                    .WithOne(s => s.Teacher)
                    .HasForeignKey(s => s.TeacherId)

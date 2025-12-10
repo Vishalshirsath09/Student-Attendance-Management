@@ -1,8 +1,9 @@
-﻿using Kemar.SMS.Model.Common;
+﻿using Kemar.SMS.Business.StudentBusiness;
+using Kemar.SMS.Business.TeacherBusiness;
+using Kemar.SMS.Model.Common;
 using Kemar.SMS.Model.Request;
 using Kemar.SMS.Model.Response;
 using Kemar.SMS.Repository.Repositories.UserRepo;
-using Kemar.SMS.Business.StudentBusiness;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,12 +16,18 @@ namespace Kemar.SMS.Business.UserBusiness
     {
         private readonly IUser _repository;
         private readonly IStudentService _studentService;
+        private readonly ITeacherService _teacherService;
         private readonly IConfiguration _config;
 
-        public UserService(IUser repository, IStudentService studentService, IConfiguration config)
+        public UserService(
+            IUser repository,
+            IStudentService studentService,
+            ITeacherService teacherService,
+            IConfiguration config)
         {
             _repository = repository;
             _studentService = studentService;
+            _teacherService = teacherService;
             _config = config;
         }
 
@@ -55,8 +62,26 @@ namespace Kemar.SMS.Business.UserBusiness
                 await _studentService.AddOrUpdateAsync(studentRequest);
             }
 
-            return userResult;
+            else if (request.Role == "Teacher")
+            {
+                var teacherRequest = new TeacherRequest
+                {
+                    UserId = createdUser.UserId,
+                    TeacherName = request.TeacherName,
+                    PhoneNo = request.PhoneNo,
+                    EmailAddress = request.EmailAddress,
+                    Address = request.Address,
+                    Qualification = request.Qualification,
+                    Experience = (decimal)request.Experience,
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = request.CreatedBy,
+                    IsActive = true
+                };
 
+                await _teacherService.AddOrUpdateAsync(teacherRequest);
+            }
+
+            return userResult;
         }
 
         public async Task<ResultModel> GetByIdAsync(int id)
@@ -87,10 +112,11 @@ namespace Kemar.SMS.Business.UserBusiness
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-                new Claim("role", user.Role),
-                new Claim("userId", user.UserId.ToString())
+              new Claim(ClaimTypes.Name, user.Username),
+              new Claim("role", user.Role),
+              new Claim("userId", user.UserId.ToString())
             };
+
 
             var token = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],

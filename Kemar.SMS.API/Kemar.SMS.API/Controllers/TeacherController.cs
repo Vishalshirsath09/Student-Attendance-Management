@@ -1,11 +1,13 @@
 ﻿using Kemar.SMS.Business.TeacherBusiness;
 using Kemar.SMS.Model.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kemar.SMS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TeacherController : ControllerBase
     {
         private readonly ITeacherService _service;
@@ -15,6 +17,7 @@ namespace Kemar.SMS.API.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "HOD")]
         [HttpPost("AddOrUpdate")]
         public async Task<IActionResult> AddOrUpdate(TeacherRequest request)
         {
@@ -22,6 +25,7 @@ namespace Kemar.SMS.API.Controllers
             return CommonHelper.ReturnActionResultByStatus(result, this);
         }
 
+        [Authorize(Roles = "HOD,Teacher")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -29,6 +33,7 @@ namespace Kemar.SMS.API.Controllers
             return CommonHelper.ReturnActionResultByStatus(result, this);
         }
 
+        [Authorize(Roles = "HOD")]
         [HttpGet("filter")]
         public async Task<IActionResult> Filter(string? name, string? email)
         {
@@ -36,6 +41,7 @@ namespace Kemar.SMS.API.Controllers
             return CommonHelper.ReturnActionResultByStatus(result, this);
         }
 
+        [Authorize(Roles = "HOD")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {

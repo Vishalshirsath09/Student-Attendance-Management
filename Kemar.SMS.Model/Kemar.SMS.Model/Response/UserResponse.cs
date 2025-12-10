@@ -13,6 +13,8 @@ namespace Kemar.SMS.Model.Response
         public string? TeacherName { get; set; }
         public string? PhoneNo { get; set; }
         public string? EmailAddress { get; set; }
+        public string? Qualification { get; set; }
+        public decimal? Experience { get; set; }
         public string? Address { get; set; }
         public string? StudentName { get; set; }
         public string? Class { get; set; }

@@ -1,57 +1,67 @@
-﻿//using Kemar.SMS.Business.SubjectBusiness;
-//using Kemar.SMS.Model.Request;
-//using Microsoft.AspNetCore.Mvc;
+﻿using Kemar.SMS.Business.SubjectBusiness;
+using Kemar.SMS.Model.Request;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
-//namespace Kemar.SMS.API.Controllers
-//{
-//    [ApiController]
-//    [Route("api/[Controller]")]
-//    public class SubjectController : ControllerBase
-//    {
-//        private readonly ISubjectService  _subjectService;
+namespace Kemar.SMS.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class SubjectController : ControllerBase
+    {
+        private readonly ISubjectService _service;
 
-//        public SubjectController(ISubjectService SubjectService)
-//        {
+        public SubjectController(ISubjectService service)
+        {
+            _service = service;
+        }
 
-//            _subjectService = SubjectService;
-//        }
-//        [HttpPost("CreateSubject")]
-//        public async Task<IActionResult> Create(SubjectRequest request)
-//        {
-//            if (!ModelState.IsValid) return BadRequest(ModelState);
-//            var result = await _subjectService.CreateAsync(request);
-//            return Ok(result);
-//        }
+        [Authorize(Roles = "HOD")]
+        [HttpPost("AddOrUpdate")]
+        public async Task<IActionResult> AddOrUpdate([FromBody] SubjectRequest request)
+        {
+            // Get logged-in username from token
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
+            if (string.IsNullOrEmpty(username))
+                throw new UnauthorizedAccessException("User not found in token");
 
-//        [HttpGet("GetAllSubject")]
-//        public async Task<IActionResult> GetAll()
-//        {
-//            var result = await _subjectService.GetAllAsync();
-//            return Ok(result);
-//        }
+            if (request.SubjectId == 0)
+                request.CreatedBy = username;   // For new record
+            else
+                request.UpdatedBy = username;   // For update
 
-//        [HttpGet("GetSubjectById/{id:int}")]
-//        public async Task<IActionResult> GetById(int id)
-//        {
-//            var result = await _subjectService.GetByIdAsync(id);
-//            if (result == null) return NotFound("subject not found");
-//            return Ok(result);
-//        }
+            var result = await _service.AddOrUpdateAsync(request);
+            return CommonHelper.ReturnActionResultByStatus(result, this);
+        }
 
-//        [HttpPut("UpdateSubject/{id:int}")]
-//        public async Task<IActionResult> Update(int id, SubjectRequest request)
-//        {
-//            var result = await _subjectService.UpdateAsync(id, request);
-//            if (result == null) return NotFound("subject not found");
-//            return Ok(result);
-//        }
+        [Authorize(Roles = "HOD,Teacher")]
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var result = await _service.GetByIdAsync(id);
+            return CommonHelper.ReturnActionResultByStatus(result, this);
+        }
 
-//        [HttpDelete("RemoveTeacher/{id:int}")]
-//        public async Task<IActionResult> Delete(int id)
-//        {
-//            var result = await _subjectService.DeleteAsync(id);
-//            if (!result) return NotFound("subject not found");
-//            return Ok("subject deleted successfully");
-//        }
-//    }
-//}
+        [Authorize(Roles = "HOD,Teacher")]
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetByFilter([FromQuery] string? subjectName, [FromQuery] string? subjectCode)
+        {
+            var result = await _service.GetByFilterAsync(subjectName, subjectCode);
+            return CommonHelper.ReturnActionResultByStatus(result, this);
+        }
+
+        [Authorize(Roles = "HOD")]
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteById(int id)
+        {
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
+            if (string.IsNullOrEmpty(username))
+                throw new UnauthorizedAccessException("User not found in token");
+
+            var result = await _service.DeleteByIdAsync(id);
+            return CommonHelper.ReturnActionResultByStatus(result, this);
+        }
+    }
+}

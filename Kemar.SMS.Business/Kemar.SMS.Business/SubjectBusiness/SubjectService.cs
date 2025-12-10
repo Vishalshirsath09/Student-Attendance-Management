@@ -1,11 +1,10 @@
-﻿using Kemar.SMS.Model.Request;
-using Kemar.SMS.Model.Response;
+﻿using Kemar.SMS.Model.Common;
+using Kemar.SMS.Model.Request;
 using Kemar.SMS.Repository.Repositories.SubjectRepo;
 
 namespace Kemar.SMS.Business.SubjectBusiness
 {
     public class SubjectService : ISubjectService
-
     {
         private readonly ISubject _repository;
 
@@ -14,29 +13,30 @@ namespace Kemar.SMS.Business.SubjectBusiness
             _repository = repository;
         }
 
-        public async Task<SubjectResponse> CreateAsync(SubjectRequest request)
+        public async Task<ResultModel> AddOrUpdateAsync(SubjectRequest request)
         {
-            return await _repository.CreateAsync(request);
+            // CreatedBy / UpdatedBy already set in Controller
+            if (request.SubjectId == 0)
+                request.IsActive = true;
+            else
+                request.UpdatedAt = DateTime.UtcNow;
+
+            return await _repository.AddOrUpdateAsync(request);
         }
 
-        public async Task<IEnumerable<SubjectResponse>> GetAllAsync()
-        {
-            return await _repository.GetAllAsync();
-        }
-        public async Task<SubjectResponse?> GetByIdAsync(int id)
+        public async Task<ResultModel> GetByIdAsync(int id)
         {
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task<SubjectResponse?> UpdateAsync(int id, SubjectRequest request)
+        public async Task<ResultModel> GetByFilterAsync(string? subjectName, string? subjectCode)
         {
-            return await _repository.UpdateAsync(id, request);
+            return await _repository.GetByFilterAsync(subjectName, subjectCode);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<ResultModel> DeleteByIdAsync(int id)
         {
-            return await _repository.DeleteAsync(id);
+            return await _repository.DeleteByIdAsync(id);
         }
     }
 }
-

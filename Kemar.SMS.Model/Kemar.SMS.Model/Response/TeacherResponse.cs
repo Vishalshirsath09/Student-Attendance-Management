@@ -9,5 +9,7 @@ namespace Kemar.SMS.Model.Response
         public string PhoneNo { get; set; }
         public string Address { get; set; }
         public string? EmailAddress { get; set; }
+        public string Qualification { get; set; }
+        public decimal Experience { get; set; }
     }
 }

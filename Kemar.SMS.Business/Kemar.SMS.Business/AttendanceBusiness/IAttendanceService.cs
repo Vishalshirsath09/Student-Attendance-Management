@@ -1,14 +1,13 @@
-﻿using Kemar.SMS.Model.Request;
-using Kemar.SMS.Model.Response;
+﻿using Kemar.SMS.Model.Common;
+using Kemar.SMS.Model.Request;
 
 namespace Kemar.SMS.Business.AttendanceBusiness
 {
     public interface IAttendanceService
     {
-        Task<AttendanceResponse> CreateAsync(AttendanceRequest request);
-        Task<IEnumerable<AttendanceResponse>> GetAllAsync();
-        Task<AttendanceResponse?> GetByIdAsync(int id);
-        Task<AttendanceResponse?> UpdateAsync(int id, AttendanceRequest request);
-        Task<bool> DeleteAsync(int id);
+        Task<ResultModel> AddOrUpdateAsync(AttendanceRequest request);
+        Task<ResultModel> GetByIdAsync(int id);
+        Task<ResultModel> GetByFilterAsync(int? studentId, int? subjectId, int? teacherId, DateTime? date);
+        Task<ResultModel> DeleteByIdAsync(int id);
     }
 }
