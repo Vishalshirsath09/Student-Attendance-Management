@@ -1,0 +1,33 @@
+<!-- NAV BAR (shown only after login) -->
+<nav *ngIf="isLoggedIn()" class="navbar">
+
+  <!-- PROJECT NAME -->
+  <div class="project-name">
+    Student Management
+  </div>
+
+  <!-- MAIN MENUS -->
+  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+  <a routerLink="/student" routerLinkActive="active">Student</a>
+  <a routerLink="/teacher" routerLinkActive="active">Teacher</a>
+  <a routerLink="/subject" routerLinkActive="active">Subject</a>
+  <a routerLink="/attendance" routerLinkActive="active">Attendance</a>
+
+  <!-- ADMIN DROPDOWN (CLICK TO OPEN) -->
+  <div class="admin-menu" (click)="toggleDropdown()">
+    <span class="admin-title">Admin ▼</span>
+
+    <div class="dropdown" [class.show]="dropdownOpen">
+      <a routerLink="/register">New Registration</a>
+    </div>
+  </div>
+
+  <!-- LOGOUT BUTTON -->
+  <button class="logout-btn" (click)="logout()">Logout</button>
+
+</nav>
+
+<!-- PAGE CONTENT -->
+<div class="page-content">
+  <router-outlet></router-outlet>
+</div>

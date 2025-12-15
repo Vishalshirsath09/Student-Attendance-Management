@@ -1,0 +1,68 @@
+/* Main form container */
+.register-container {
+  width: 450px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  font-family: Arial, sans-serif;
+}
+
+/* Section headings */
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1976d2;
+}
+
+.register-container h3 {
+  margin-top: 20px;
+  color: #444;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+/* Labels */
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+/* Inputs and Select dropdown */
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  background: #1976d2;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #0e55a2;
+}
+
+/* Make form responsive */
+@media (max-width: 500px) {
+  .register-container {
+    width: 95%;
+  }
+}

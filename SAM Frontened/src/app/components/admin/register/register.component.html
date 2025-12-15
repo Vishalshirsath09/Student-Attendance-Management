@@ -1,0 +1,75 @@
+<div class="register-container">
+  <h2>Register User</h2>
+
+  <form #regForm="ngForm" (ngSubmit)="register()">
+
+    <!-- ROLE SELECT -->
+    <label>Role</label>
+    <select class="form-control" name="role" [(ngModel)]="user.role" required>
+      <option value="">-- Select Role --</option>
+      <option value="Student">Student</option>
+      <option value="Teacher">Teacher</option>
+    </select>
+
+    <br />
+
+    <!-- COMMON FIELDS -->
+    <label>Username</label>
+    <input type="text" class="form-control" name="username" [(ngModel)]="user.username" required>
+
+    <label>Password</label>
+    <input type="password" class="form-control" name="password" [(ngModel)]="user.password" required>
+
+    <label>Full Name</label>
+    <input type="text" class="form-control" name="fullName" [(ngModel)]="user.fullName" required>
+
+    <br />
+
+    <!-- STUDENT FIELDS -->
+    <div *ngIf="user.role === 'Student'">
+      <h3>Student Details</h3>
+
+      <label>Student Name</label>
+      <input type="text" class="form-control" name="studentName" [(ngModel)]="student.studentName">
+
+      <label>Roll No</label>
+      <input type="number" class="form-control" name="rollno" [(ngModel)]="student.rollno">
+
+      <label>Class</label>
+      <input type="text" class="form-control" name="class" [(ngModel)]="student.class">
+
+      <label>Division</label>
+      <input type="text" class="form-control" name="div" [(ngModel)]="student.div">
+
+      <label>Phone No</label>
+      <input type="text" class="form-control" name="phoneNo" [(ngModel)]="student.phoneNo">
+
+      <label>Address</label>
+      <input type="text" class="form-control" name="address" [(ngModel)]="student.address">
+
+      <label>Email</label>
+      <input type="email" class="form-control" name="emailAddress" [(ngModel)]="student.emailAddress">
+    </div>
+
+    <!-- TEACHER FIELDS -->
+    <div *ngIf="user.role === 'Teacher'">
+      <h3>Teacher Details</h3>
+
+      <label>Teacher Name</label>
+      <input type="text" class="form-control" name="teacherName" [(ngModel)]="teacher.teacherName">
+
+      <label>Phone No</label>
+      <input type="text" class="form-control" name="phoneNo" [(ngModel)]="teacher.phoneNo">
+
+      <label>Email</label>
+      <input type="email" class="form-control" name="emailAddress" [(ngModel)]="teacher.emailAddress">
+
+      <label>Address</label>
+      <input type="text" class="form-control" name="address" [(ngModel)]="teacher.address">
+    </div>
+
+    <br />
+    <button class="btn btn-primary" type="submit">Register</button>
+
+  </form>
+</div>
