@@ -1,24 +1,46 @@
 <div class="student-container">
-  <h2>All Students</h2>
 
-  <!-- Error message -->
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <!-- HEADER -->
+  <div class="header-row">
+    <h2>All Students</h2>
 
-  <!-- Edit button above table in top-right corner -->
-  <div class="edit-student-btn-container">
-    <select [(ngModel)]="selectedStudent" class="student-select">
-      <option *ngFor="let s of students" [ngValue]="s">{{ s.studentName }}</option>
-    </select>
-    <button 
-      class="edit-btn" 
-      [disabled]="!selectedStudent"
-      (click)="openEditModal(selectedStudent!)">
-      Edit Student
-    </button>
+    <!-- FILTER BAR (RIGHT SIDE) -->
+    <div class="filter-box">
+
+      <!-- FILTER TYPE -->
+      <select [(ngModel)]="filterType" (change)="filterValue=''">
+        <option value="">Select Filter</option>
+        <option value="name">Name</option>
+        <option value="class">Class</option>
+        <option value="div">Division</option>
+      </select>
+
+      <!-- FILTER VALUE -->
+      <select *ngIf="filterType === 'name'" [(ngModel)]="filterValue">
+        <option value="">Select Name</option>
+        <option *ngFor="let n of nameList" [value]="n">{{ n }}</option>
+      </select>
+
+      <select *ngIf="filterType === 'class'" [(ngModel)]="filterValue">
+        <option value="">Select Class</option>
+        <option *ngFor="let c of classList" [value]="c">{{ c }}</option>
+      </select>
+
+      <select *ngIf="filterType === 'div'" [(ngModel)]="filterValue">
+        <option value="">Select Division</option>
+        <option *ngFor="let d of divList" [value]="d">{{ d }}</option>
+      </select>
+
+      <button class="search-btn" (click)="applyFilter()">Search</button>
+      <button class="clear-btn" (click)="clearFilter()">Clear</button>
+    </div>
   </div>
 
-  <!-- Students table -->
-  <table *ngIf="students.length > 0" class="student-table">
+  <!-- ERROR -->
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- STUDENT TABLE -->
+  <table *ngIf="filteredStudents.length" class="student-table">
     <thead>
       <tr>
         <th>Roll No</th>
@@ -27,56 +49,62 @@
         <th>Division</th>
         <th>Phone</th>
         <th>Email</th>
-        <th>Address</th>
+        <th>Status</th>
+        <th style="width: 90px;">Action</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr *ngFor="let student of students">
-        <td>{{ student.rollno }}</td>
-        <td>{{ student.studentName }}</td>
-        <td>{{ student.class }}</td>
-        <td>{{ student.div }}</td>
-        <td>{{ student.phoneNo }}</td>
-        <td>{{ student.emailAddress }}</td>
-        <td>{{ student.address }}</td>
+      <tr *ngFor="let s of filteredStudents">
+        <td>{{ s.rollno }}</td>
+        <td>{{ s.studentName }}</td>
+        <td>{{ s.class }}</td>
+        <td>{{ s.div }}</td>
+        <td>{{ s.phoneNo }}</td>
+        <td>{{ s.emailAddress }}</td>
+
+        <!-- STATUS -->
+        <td>
+          <span [class.active]="s.isActive" [class.inactive]="!s.isActive">
+            {{ s.isActive ? 'Active' : 'Inactive' }}
+          </span>
+          <button class="status-btn" (click)="toggleStatus(s)">
+            {{ s.isActive ? 'Deactivate' : 'Activate' }}
+          </button>
+        </td>
+
+        <!-- ACTION -->
+        <td>
+          <button class="edit-btn" (click)="openEdit(s)">Edit</button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <div *ngIf="students.length === 0 && !error" class="no-data">
-    No students found.
+  <!-- NO DATA -->
+  <div *ngIf="!filteredStudents.length && !error" class="no-data">
+    No students found
   </div>
+
 </div>
 
-<!-- Edit Student Modal -->
+<!-- EDIT MODAL -->
 <div class="modal" [class.show]="isEditModalOpen">
   <div class="modal-content">
-    <span class="close" (click)="closeEditModal()">&times;</span>
+    <span class="close" (click)="closeEdit()">×</span>
+
     <h3>Edit Student</h3>
 
-    <form *ngIf="selectedStudent" #editForm="ngForm" (ngSubmit)="updateStudent()">
-      <label>Student Name</label>
-      <input type="text" [(ngModel)]="selectedStudent.studentName" name="studentName" required>
+    <form *ngIf="selectedStudent" (ngSubmit)="saveEdit()">
+      <input [(ngModel)]="selectedStudent.studentName" name="name" placeholder="Name">
+      <input [(ngModel)]="selectedStudent.rollno" name="rollno" type="number" placeholder="Roll No">
+      <input [(ngModel)]="selectedStudent.class" name="class" placeholder="Class">
+      <input [(ngModel)]="selectedStudent.div" name="div" placeholder="Division">
+      <input [(ngModel)]="selectedStudent.phoneNo" name="phone" placeholder="Phone">
+      <input [(ngModel)]="selectedStudent.emailAddress" name="email" placeholder="Email">
+      <input [(ngModel)]="selectedStudent.address" name="address" placeholder="Address">
 
-      <label>Roll No</label>
-      <input type="number" [(ngModel)]="selectedStudent.rollno" name="rollno" required>
-
-      <label>Class</label>
-      <input type="text" [(ngModel)]="selectedStudent.class" name="class" required>
-
-      <label>Division</label>
-      <input type="text" [(ngModel)]="selectedStudent.div" name="div" required>
-
-      <label>Phone</label>
-      <input type="text" [(ngModel)]="selectedStudent.phoneNo" name="phoneNo" required>
-
-      <label>Email</label>
-      <input type="email" [(ngModel)]="selectedStudent.emailAddress" name="emailAddress" required>
-
-      <label>Address</label>
-      <input type="text" [(ngModel)]="selectedStudent.address" name="address" required>
-
-      <button type="submit" class="save-btn">Save Changes</button>
+      <button class="save-btn" type="submit">Save</button>
     </form>
   </div>
 </div>

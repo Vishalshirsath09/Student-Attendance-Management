@@ -14,10 +14,20 @@ import { Student } from '../../models/student';
 export class StudentComponent implements OnInit {
 
   students: Student[] = [];
-  error: string = '';
+  filteredStudents: Student[] = [];
+  error = '';
 
-  // Modal controls
-  isEditModalOpen: boolean = false;
+  // FILTER
+  filterType: 'name' | 'class' | 'div' | '' = '';
+  filterValue = '';
+
+  // OPTIONS
+  nameList: string[] = [];
+  classList: string[] = [];
+  divList: string[] = [];
+
+  // EDIT
+  isEditModalOpen = false;
   selectedStudent: Student | null = null;
 
   constructor(private studentService: StudentService) {}
@@ -28,37 +38,74 @@ export class StudentComponent implements OnInit {
 
   loadStudents() {
     this.studentService.getAllStudents().subscribe({
-      next: (res) => this.students = res,
-      error: (err) => {
-        console.error(err);
-        this.error = 'Failed to load students';
-      }
+      next: (res) => {
+        this.students = res;
+        this.filteredStudents = res;
+
+        this.nameList = [...new Set(res.map(s => s.studentName))];
+        this.classList = [...new Set(res.map(s => s.class))];
+        this.divList = [...new Set(res.map(s => s.div))];
+      },
+      error: () => this.error = 'Failed to load students'
     });
   }
 
-  openEditModal(student: Student) {
-    this.selectedStudent = { ...student }; // clone to avoid changing table directly
+  /** SEARCH */
+  applyFilter() {
+    if (!this.filterType || !this.filterValue) {
+      this.filteredStudents = this.students;
+      return;
+    }
+
+    this.filteredStudents = this.students.filter(s => {
+      if (this.filterType === 'name') {
+        return s.studentName === this.filterValue;
+      }
+      if (this.filterType === 'class') {
+        return s.class === this.filterValue;
+      }
+      if (this.filterType === 'div') {
+        return s.div === this.filterValue;
+      }
+      return true;
+    });
+  }
+
+  clearFilter() {
+    this.filterType = '';
+    this.filterValue = '';
+    this.filteredStudents = this.students;
+  }
+
+  /** EDIT */
+  openEdit(student: Student) {
+    this.selectedStudent = { ...student };
     this.isEditModalOpen = true;
   }
 
-  closeEditModal() {
+  closeEdit() {
     this.isEditModalOpen = false;
     this.selectedStudent = null;
   }
 
-  updateStudent() {
+  saveEdit() {
     if (!this.selectedStudent) return;
 
     this.studentService.addOrUpdateUser(this.selectedStudent).subscribe({
       next: () => {
-        alert('Student updated successfully');
-        this.closeEditModal();
-        this.loadStudents(); // refresh table
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Failed to update student');
+        alert('Student updated');
+        this.closeEdit();
+        this.loadStudents();
       }
+    });
+  }
+
+  /** STATUS */
+  toggleStatus(student: Student) {
+    const updated = { ...student, isActive: !student.isActive };
+
+    this.studentService.addOrUpdateUser(updated).subscribe({
+      next: () => this.loadStudents()
     });
   }
 }

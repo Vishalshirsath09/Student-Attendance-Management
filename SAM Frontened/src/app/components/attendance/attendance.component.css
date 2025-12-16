@@ -1,0 +1,100 @@
+.attendance-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attendance-table th,
+.attendance-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.attendance-table th {
+  background-color: #1976d2;
+  color: white;
+}
+
+.attendance-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+/* STATUS COLUMN */
+.status-cell {
+  font-weight: bold;
+}
+
+/* PRESENT */
+.present {
+  color: #2e7d32;        /* green */
+  font-size: 16px;
+}
+
+/* ABSENT */
+.absent {
+  color: #c62828;        /* red */
+  font-size: 16px;
+}
+
+/* ============================= */
+/* CUSTOM PRESENT / ABSENT ICONS */
+/* ============================= */
+
+.present-box,
+.absent-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hide default checkbox */
+.present-box input,
+.absent-box input {
+  display: none;
+}
+
+/* Base icon style */
+.present-box span,
+.absent-box span {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #e0e0e0;
+}
+
+/* PRESENT CHECKED */
+.present-box input:checked + span {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.present-box input:checked + span::before {
+  content: "✔";
+}
+
+/* ABSENT CHECKED */
+.absent-box input:checked + span {
+  background-color: #c62828;
+  color: white;
+}
+
+.absent-box input:checked + span::before {
+  content: "✖";
+}
+
+/* DISABLED STATE (ADMIN) */
+.present-box input:disabled + span,
+.absent-box input:disabled + span {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

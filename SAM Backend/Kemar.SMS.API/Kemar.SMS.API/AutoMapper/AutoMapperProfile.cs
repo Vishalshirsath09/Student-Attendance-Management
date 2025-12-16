@@ -50,19 +50,28 @@ namespace Kemar.SMS.API.Helper
             #region Subject
             CreateMap<SubjectRequest, Subject>()
                 .ForMember(dest => dest.SubjectId, opt => opt.Ignore());
-            CreateMap<Subject, SubjectResponse>();
+
+            CreateMap<Subject, SubjectResponse>()
+                .ForMember(dest => dest.TeacherName,
+                    opt => opt.MapFrom(src =>
+                        src.Teacher != null ? src.Teacher.TeacherName : null
+                    ));
             #endregion
+
 
             #region Attendance
             CreateMap<AttendanceRequest, Attendance>()
                 .ForMember(dest => dest.AttendanceId, opt => opt.Ignore());
 
             CreateMap<Attendance, AttendanceResponse>()
+                .ForMember(dest => dest.StudentName,
+                    opt => opt.MapFrom(src => src.Student != null ? src.Student.StudentName : null))
                 .ForMember(dest => dest.SubjectName,
-                    opt => opt.MapFrom(src => src.Subject!.SubjectName))
+                    opt => opt.MapFrom(src => src.Subject != null ? src.Subject.SubjectName : null))
                 .ForMember(dest => dest.TeacherName,
-                    opt => opt.MapFrom(src => src.Subject!.Teacher));
+                    opt => opt.MapFrom(src => src.Teacher != null ? src.Teacher.TeacherName : null));
             #endregion
+
         }
     }
 }

@@ -79,6 +79,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Kemar.SMS.API.Controllers.AttendanceController",
+    "Method": "GetAllStudents",
+    "RelativePath": "api/Attendance/GetAllStudents",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Kemar.SMS.API.Controllers.StudentController",
     "Method": "GetById",
     "RelativePath": "api/Student/{id}",
@@ -153,6 +163,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Kemar.SMS.API.Controllers.StudentController",
+    "Method": "GetAllStudents",
+    "RelativePath": "api/Student/GetAllStudents",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Kemar.SMS.API.Controllers.SubjectController",
     "Method": "GetById",
     "RelativePath": "api/Subject/{id}",
@@ -222,6 +242,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Kemar.SMS.API.Controllers.SubjectController",
+    "Method": "GetAllSubjects",
+    "RelativePath": "api/Subject/GetAllSubjects",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Kemar.SMS.API.Controllers.TeacherController",
     "Method": "GetById",
     "RelativePath": "api/Teacher/{id}",
@@ -288,6 +318,16 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Kemar.SMS.API.Controllers.TeacherController",
+    "Method": "GetAllTeachers",
+    "RelativePath": "api/Teacher/GetAllTeachers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

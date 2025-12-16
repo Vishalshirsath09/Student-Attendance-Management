@@ -1,0 +1,99 @@
+<div class="subject-container">
+
+  <!-- HEADER -->
+  <div class="header-row">
+    <h2>All Subjects</h2>
+
+    <div class="filter-box">
+      <select [(ngModel)]="filterType" (change)="filterValue=''">
+        <option value="">Select Filter</option>
+        <option value="name">Subject Name</option>
+        <option value="code">Subject Code</option>
+      </select>
+
+      <select *ngIf="filterType === 'name'" [(ngModel)]="filterValue">
+        <option value="">Select Subject</option>
+        <option *ngFor="let n of nameList" [value]="n">{{ n }}</option>
+      </select>
+
+      <select *ngIf="filterType === 'code'" [(ngModel)]="filterValue">
+        <option value="">Select Code</option>
+        <option *ngFor="let c of codeList" [value]="c">{{ c }}</option>
+      </select>
+
+      <button class="search-btn" (click)="applyFilter()">Search</button>
+      <button class="clear-btn" (click)="clearFilter()">Clear</button>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table *ngIf="filteredSubjects.length" class="subject-table">
+    <thead>
+      <tr>
+        <th>Subject Name</th>
+        <th>Subject Code</th>
+        <th>Teacher</th>
+        <th>Status</th>
+        <th style="width:90px">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let s of filteredSubjects">
+        <td>{{ s.subjectName }}</td>
+        <td>{{ s.subjectCode }}</td>
+        <td>{{ s.teacherName || 'Not Assigned' }}</td>
+        <td>
+          <span [class.active]="s.isActive" [class.inactive]="!s.isActive">
+            {{ s.isActive ? 'Active' : 'Inactive' }}
+          </span>
+          <button class="status-btn" (click)="toggleStatus(s)">
+            {{ s.isActive ? 'Deactivate' : 'Activate' }}
+          </button>
+        </td>
+        <td>
+          <button class="edit-btn" (click)="openEdit(s)">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!filteredSubjects.length && !error" class="no-data">
+    No subjects found
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal" [class.show]="isEditModalOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closeEdit()">×</span>
+
+    <h3>Edit Subject</h3>
+
+    <form *ngIf="selectedSubject" (ngSubmit)="saveEdit()">
+      <input
+        [(ngModel)]="selectedSubject.subjectName"
+        name="subjectName"
+        placeholder="Subject Name"
+        required
+      />
+      <input
+        [(ngModel)]="selectedSubject.subjectCode"
+        name="subjectCode"
+        placeholder="Subject Code"
+        required
+      />
+
+      <!-- TEACHER DROPDOWN -->
+      <select [(ngModel)]="selectedSubject.teacherId" name="teacherId">
+        <option [ngValue]="null">Select Teacher</option>
+        <option *ngFor="let t of teachers" [ngValue]="t.teacherId">
+          {{ t.teacherName }}
+        </option>
+      </select>
+
+      <button class="save-btn" type="submit">Save</button>
+    </form>
+  </div>
+</div>

@@ -16,8 +16,19 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()    // Allow all origins
+                  .AllowAnyMethod()    // GET, POST, PUT, DELETE
+                  .AllowAnyHeader();   // headers
+        });
+});
 
 builder.Services.AddDbContext<KemarDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -35,6 +46,7 @@ builder.Services.AddScoped<IAttendance, AttendanceRepository>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
 builder.Services.AddControllers();
 
 
@@ -95,6 +107,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();

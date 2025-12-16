@@ -26,7 +26,6 @@ namespace Kemar.SMS.Repository.Repositories.AttendanceRepo
                 if (request.AttendanceId == 0)
                 {
                     var attendance = _mapper.Map<Attendance>(request);
-                  //  attendance.TeacherId = request.TeacherId;
                     attendance.CreatedAt = DateTime.UtcNow;
                     attendance.IsActive = true;
 
@@ -54,13 +53,16 @@ namespace Kemar.SMS.Repository.Repositories.AttendanceRepo
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
         public async Task<ResultModel> GetByIdAsync(int id)
         {
             var attendance = await _context.Attendances
+                .Include(a => a.Student)
+                .Include(a => a.Subject)
+                .Include(a => a.Teacher)
                 .FirstOrDefaultAsync(a => a.AttendanceId == id && a.IsActive);
 
             if (attendance == null)
@@ -71,7 +73,11 @@ namespace Kemar.SMS.Repository.Repositories.AttendanceRepo
 
         public async Task<ResultModel> GetByFilterAsync(int? studentId, int? subjectId, int? teacherId, DateTime? date)
         {
-            var query = _context.Attendances.Where(a => a.IsActive);
+            var query = _context.Attendances
+                .Include(a => a.Student)
+                .Include(a => a.Subject)
+                .Include(a => a.Teacher)
+                .Where(a => a.IsActive);
 
             if (studentId.HasValue)
                 query = query.Where(a => a.StudentId == studentId.Value);
@@ -86,7 +92,6 @@ namespace Kemar.SMS.Repository.Repositories.AttendanceRepo
                 query = query.Where(a => a.AttendanceDate.Date == date.Value.Date);
 
             var list = await query.ToListAsync();
-
             return ResultModel.Success(_mapper.Map<List<AttendanceResponse>>(list));
         }
 

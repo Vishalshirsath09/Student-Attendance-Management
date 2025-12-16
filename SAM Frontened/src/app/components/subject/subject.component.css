@@ -1,4 +1,4 @@
-.student-container {
+.subject-container {
   padding: 20px;
   font-family: Arial, sans-serif;
 }
@@ -24,7 +24,7 @@ h2 {
 
 .filter-box select {
   padding: 6px;
-  min-width: 140px;
+  min-width: 150px;
 }
 
 /* BUTTONS */
@@ -47,29 +47,30 @@ h2 {
 }
 
 /* TABLE */
-.student-table {
+.subject-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.student-table th,
-.student-table td {
+.subject-table th,
+.subject-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
+  vertical-align: middle;
 }
 
-.student-table th {
+.subject-table th {
   background: #1976d2;
   color: white;
 }
 
-.student-table tr:nth-child(even) {
+.subject-table tr:nth-child(even) {
   background: #f9f9f9;
 }
 
-.student-table tr:hover {
+.subject-table tr:hover {
   background: #e3f2fd;
 }
 
@@ -128,7 +129,7 @@ h2 {
 .modal-content {
   background: white;
   padding: 20px;
-  width: 400px;
+  width: 380px;
   border-radius: 6px;
   position: relative;
 }

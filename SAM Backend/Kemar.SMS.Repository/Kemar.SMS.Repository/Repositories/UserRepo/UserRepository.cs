@@ -55,7 +55,7 @@ namespace Kemar.SMS.Repository.Repositories.UserRepo
                 var updatedResponse = _mapper.Map<UserResponse>(existing);
                 return ResultModel.Updated(updatedResponse);
             }
-            
+
             catch (Exception ex)
             {
 

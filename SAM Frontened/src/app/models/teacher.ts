@@ -1,4 +1,5 @@
 export interface Teacher {
+  isActive: any;
   teacherName: string;
   phoneNo: string;
   emailAddress: string;

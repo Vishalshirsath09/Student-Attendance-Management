@@ -25,6 +25,15 @@ namespace Kemar.SMS.API.Controllers
             return CommonHelper.ReturnActionResultByStatus(result, this);
         }
 
+
+        [Authorize(Roles = "HOD,Teacher")]
+        [HttpGet("GetAllTeachers")]
+        public async Task<IActionResult> GetAllTeachers()
+        {
+            var result = await _service.GetByFilterAsync(null, null);
+            return CommonHelper.ReturnActionResultByStatus(result, this);
+        }
+
         [Authorize(Roles = "HOD,Teacher")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)

@@ -1,0 +1,30 @@
+<div class="dashboard-container">
+
+  <h2 class="dashboard-title">Dashboard</h2>
+
+  <div class="card-grid">
+
+    <!-- STUDENTS -->
+    <div class="dashboard-card student" (click)="goToStudents()">
+      <div class="icon">🎓</div>
+      <div class="count">{{ studentCount }}</div>
+      <div class="label">Students</div>
+    </div>
+
+    <!-- TEACHERS -->
+    <div class="dashboard-card teacher" (click)="goToTeachers()">
+      <div class="icon">👨‍🏫</div>
+      <div class="count">{{ teacherCount }}</div>
+      <div class="label">Teachers</div>
+    </div>
+
+    <!-- SUBJECTS -->
+    <div class="dashboard-card subject" (click)="goToSubjects()">
+      <div class="icon">📚</div>
+      <div class="count">{{ subjectCount }}</div>
+      <div class="label">Subjects</div>
+    </div>
+
+  </div>
+
+</div>

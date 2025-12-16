@@ -33,7 +33,8 @@ export class RegistrationComponent {
     div: '',
     phoneNo: '',
     address: '',
-    emailAddress: ''
+    emailAddress: '',
+    isActive: undefined
   };
 
   teacher: Teacher = {
@@ -42,7 +43,8 @@ export class RegistrationComponent {
     emailAddress: '',
     address: '',
     qualification:'',
-    experience: 0
+    experience: 0,
+    isActive: undefined
   };
 
   register() {

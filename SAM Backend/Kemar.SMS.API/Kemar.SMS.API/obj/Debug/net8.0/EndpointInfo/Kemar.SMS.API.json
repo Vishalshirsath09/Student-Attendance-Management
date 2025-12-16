@@ -36,6 +36,18 @@
         }
       }
     },
+    "/api/Attendance/GetAllStudents": {
+      "get": {
+        "tags": [
+          "Attendance"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Attendance/{id}": {
       "get": {
         "tags": [
@@ -157,6 +169,18 @@
         }
       }
     },
+    "/api/Student/GetAllStudents": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Student/{id}": {
       "get": {
         "tags": [
@@ -267,6 +291,18 @@
         }
       }
     },
+    "/api/Subject/GetAllSubjects": {
+      "get": {
+        "tags": [
+          "Subject"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Subject/{id}": {
       "get": {
         "tags": [
@@ -363,6 +399,18 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Teacher/GetAllTeachers": {
+      "get": {
+        "tags": [
+          "Teacher"
+        ],
         "responses": {
           "200": {
             "description": "OK"

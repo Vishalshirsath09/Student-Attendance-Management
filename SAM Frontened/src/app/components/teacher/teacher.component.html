@@ -1,0 +1,97 @@
+<div class="teacher-container">
+
+  <!-- HEADER -->
+  <div class="header-row">
+    <h2>All Teachers</h2>
+
+    <!-- FILTER BAR -->
+    <div class="filter-box">
+
+      <select [(ngModel)]="filterType" (change)="filterValue=''">
+        <option value="">Select Filter</option>
+        <option value="name">Name</option>
+        <option value="qualification">Qualification</option>
+      </select>
+
+      <select *ngIf="filterType === 'name'" [(ngModel)]="filterValue">
+        <option value="">Select Name</option>
+        <option *ngFor="let n of nameList" [value]="n">{{ n }}</option>
+      </select>
+
+      <select *ngIf="filterType === 'qualification'" [(ngModel)]="filterValue">
+        <option value="">Select Qualification</option>
+        <option *ngFor="let q of qualificationList" [value]="q">{{ q }}</option>
+      </select>
+
+      <button class="search-btn" (click)="applyFilter()">Search</button>
+      <button class="clear-btn" (click)="clearFilter()">Clear</button>
+    </div>
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- TABLE -->
+  <table *ngIf="filteredTeachers.length" class="teacher-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Qualification</th>
+        <th>Experience</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th style="width: 90px;">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let t of filteredTeachers">
+        <td>{{ t.teacherName }}</td>
+        <td>{{ t.qualification }}</td>
+        <td>{{ t.experience }} yrs</td>
+        <td>{{ t.phoneNo }}</td>
+        <td>{{ t.emailAddress }}</td>
+        <td>{{t.address}}</td>
+
+        <td>
+          <span [class.active]="t.isActive" [class.inactive]="!t.isActive">
+            {{ t.isActive ? 'Active' : 'Inactive' }}
+          </span>
+          <button class="status-btn" (click)="toggleStatus(t)">
+            {{ t.isActive ? 'Deactivate' : 'Activate' }}
+          </button>
+        </td>
+
+        <td>
+          <button class="edit-btn" (click)="openEdit(t)">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!filteredTeachers.length && !error" class="no-data">
+    No teachers found
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal" [class.show]="isEditModalOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closeEdit()">×</span>
+
+    <h3>Edit Teacher</h3>
+
+    <form *ngIf="selectedTeacher" (ngSubmit)="saveEdit()">
+      <input [(ngModel)]="selectedTeacher.teacherName" name="name" placeholder="Name">
+      <input [(ngModel)]="selectedTeacher.qualification" name="qualification" placeholder="Qualification">
+      <input [(ngModel)]="selectedTeacher.experience" name="experience" type="number" placeholder="Experience">
+      <input [(ngModel)]="selectedTeacher.phoneNo" name="phone" placeholder="Phone">
+      <input [(ngModel)]="selectedTeacher.emailAddress" name="email" placeholder="Email">
+      <input [(ngModel)]="selectedTeacher.address" name="address" placeholder="Address">
+
+      <button class="save-btn" type="submit">Save</button>
+    </form>
+  </div>
+</div>

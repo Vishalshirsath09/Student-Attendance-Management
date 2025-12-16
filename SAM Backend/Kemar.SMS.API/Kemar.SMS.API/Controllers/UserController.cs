@@ -18,7 +18,7 @@ namespace Kemar.SMS.API.Controllers
             _service = service;
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "HOD")]
         [HttpPost("AddOrUpdate")]
         public async Task<IActionResult> AddOrUpdate([FromBody] UserRequest request)
         {
@@ -33,6 +33,7 @@ namespace Kemar.SMS.API.Controllers
 
             return CommonHelper.ReturnActionResultByStatus(result, this);
         }
+
 
         [Authorize(Roles = "HOD")]
         [HttpGet("{id:int}")]

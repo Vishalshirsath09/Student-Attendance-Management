@@ -1,0 +1,59 @@
+<div class="attendance-container">
+  <h2>Attendance</h2>
+
+  <table *ngIf="attendances.length" class="attendance-table">
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Subject</th>
+        <th>Teacher</th>
+        <th>Date</th>
+        <th>Present</th>
+        <th>Absent</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let att of attendances">
+        <td>{{ att.studentName }}</td>
+        <td>{{ att.subjectName }}</td>
+        <td>{{ att.teacherName }}</td>
+        <td>{{ att.attendanceDate | date:'shortDate' }}</td>
+
+<!-- PRESENT -->
+<td>
+  <label class="present-box">
+    <input
+      type="checkbox"
+      [checked]="att.isPresent"
+      [disabled]="!isTeacher"
+      (change)="markAttendance(att, true)"
+    />
+    <span></span>
+  </label>
+</td>
+
+<!-- ABSENT -->
+<td>
+  <label class="absent-box">
+    <input
+      type="checkbox"
+      [checked]="!att.isPresent"
+      [disabled]="!isTeacher"
+      (change)="markAttendance(att, false)"
+    />
+    <span></span>
+    </label>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!attendances.length && !error">No attendance records found</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <!-- ADMIN MESSAGE -->
+  <p class="readonly-note" *ngIf="!isTeacher">
+     Only teachers can mark attendance.
+  </p>
+</div>
