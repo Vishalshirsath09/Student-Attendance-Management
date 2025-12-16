@@ -6,13 +6,33 @@
 /* HEADER */
 .header-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 12px;
   margin-bottom: 15px;
 }
 
-h2 {
+.header-row h2 {
   color: #1976d2;
+  margin: 0;
+}
+
+/* ADD ICON */
+.icon-btn {
+  margin-left: auto;
+  background: #1976d2;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon-btn span {
+  color: white;
+  font-size: 22px;
 }
 
 /* FILTER */
@@ -57,8 +77,6 @@ h2 {
 .subject-table td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: left;
-  vertical-align: middle;
 }
 
 .subject-table th {
@@ -105,6 +123,7 @@ h2 {
   border-radius: 4px;
 }
 
+/* EMPTY */
 .no-data {
   margin-top: 10px;
   color: gray;
@@ -139,7 +158,8 @@ h2 {
   color: #1976d2;
 }
 
-.modal-content input {
+.modal-content input,
+.modal-content select {
   width: 100%;
   margin-bottom: 8px;
   padding: 6px;

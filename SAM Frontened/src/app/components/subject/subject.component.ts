@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SubjectService } from '../../services/subject.service';
 import { Subject } from '../../models/subject';
-import { TeacherService } from '../../services/teacher.service';
-import { Teacher } from '../../models/teacher';
 
 @Component({
   selector: 'app-subject',
@@ -17,26 +15,24 @@ export class SubjectComponent implements OnInit {
 
   subjects: Subject[] = [];
   filteredSubjects: Subject[] = [];
-  teachers: Teacher[] = [];
   error = '';
 
+  // FILTER
   filterType: 'name' | 'code' | '' = '';
   filterValue = '';
 
+  // OPTIONS
   nameList: string[] = [];
   codeList: string[] = [];
 
+  // EDIT
   isEditModalOpen = false;
   selectedSubject: Subject | null = null;
 
-  constructor(
-    private subjectService: SubjectService,
-    private teacherService: TeacherService
-  ) {}
+  constructor(private subjectService: SubjectService) {}
 
   ngOnInit(): void {
     this.loadSubjects();
-    this.loadTeachers();
   }
 
   loadSubjects() {
@@ -44,6 +40,7 @@ export class SubjectComponent implements OnInit {
       next: (res) => {
         this.subjects = res;
         this.filteredSubjects = res;
+
         this.nameList = [...new Set(res.map(s => s.subjectName))];
         this.codeList = [...new Set(res.map(s => s.subjectCode))];
       },
@@ -51,24 +48,22 @@ export class SubjectComponent implements OnInit {
     });
   }
 
-  loadTeachers() {
-    this.teacherService.getAllTeachers().subscribe({
-      next: (res) => this.teachers = res,
-      error: () => console.error('Failed to load teachers')
-    });
-  }
-
+  /** SEARCH */
   applyFilter() {
     if (!this.filterType || !this.filterValue) {
       this.filteredSubjects = this.subjects;
       return;
     }
 
-    this.filteredSubjects = this.subjects.filter(s =>
-      this.filterType === 'name'
-        ? s.subjectName === this.filterValue
-        : s.subjectCode === this.filterValue
-    );
+    this.filteredSubjects = this.subjects.filter(s => {
+      if (this.filterType === 'name') {
+        return s.subjectName === this.filterValue;
+      }
+      if (this.filterType === 'code') {
+        return s.subjectCode === this.filterValue;
+      }
+      return true;
+    });
   }
 
   clearFilter() {
@@ -77,6 +72,7 @@ export class SubjectComponent implements OnInit {
     this.filteredSubjects = this.subjects;
   }
 
+  /** EDIT */
   openEdit(subject: Subject) {
     this.selectedSubject = { ...subject };
     this.isEditModalOpen = true;
@@ -99,10 +95,12 @@ export class SubjectComponent implements OnInit {
     });
   }
 
+  /** STATUS */
   toggleStatus(subject: Subject) {
-    this.subjectService.addOrUpdateSubject({
-      ...subject,
-      isActive: !subject.isActive
-    }).subscribe(() => this.loadSubjects());
+    const updated = { ...subject, isActive: !subject.isActive };
+
+    this.subjectService.addOrUpdateSubject(updated).subscribe({
+      next: () => this.loadSubjects()
+    });
   }
 }

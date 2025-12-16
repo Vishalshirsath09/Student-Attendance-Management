@@ -23,41 +23,46 @@ namespace Kemar.SMS.Repository.Repositories.StudentRepo
         {
             try
             {
-            if (request.StudentId == 0)
-            {
-                var student = _mapper.Map<Student>(request);
-                student.CreatedAt = DateTime.UtcNow;
-                student.IsActive = true;
+                if (request.StudentId == 0)
+                {
+                    // CREATE NEW STUDENT
+                    var student = _mapper.Map<Student>(request);
+                    student.CreatedAt = DateTime.UtcNow;
+                    student.IsActive = true;
 
-                _context.Students.Add(student);
+                    _context.Students.Add(student);
+                    await _context.SaveChangesAsync();
+
+                    return ResultModel.Created(_mapper.Map<StudentResponse>(student));
+                }
+
+                // UPDATE EXISTING STUDENT
+                var existing = await _context.Students
+                    .FirstOrDefaultAsync(s => s.StudentId == request.StudentId && s.IsActive);
+
+                if (existing == null)
+                    return ResultModel.NotFound("Student not found");
+
+                // ❌ Do NOT update UserId during update
+                // existing.UserId = request.UserId;
+
+                // Update other fields
+                existing.StudentName = request.StudentName;
+                existing.Rollno = request.Rollno;
+                existing.Class = request.Class;
+                existing.Div = request.Div;
+                existing.PhoneNo = request.PhoneNo;
+                existing.Address = request.Address;
+                existing.EmailAddress = request.EmailAddress;
+                existing.IsActive = request.IsActive; // optional: update status
+                existing.UpdatedAt = DateTime.UtcNow;
+
                 await _context.SaveChangesAsync();
-
-                return ResultModel.Created(_mapper.Map<StudentResponse>(student));
+                return ResultModel.Updated(_mapper.Map<StudentResponse>(existing));
             }
-
-            var existing = await _context.Students
-                .FirstOrDefaultAsync(s => s.StudentId == request.StudentId && s.IsActive);
-
-            if (existing == null)
-                return ResultModel.NotFound("Student not found");
-
-            existing.StudentName = request.StudentName;
-            existing.Rollno = request.Rollno;
-            existing.Class = request.Class;
-            existing.Div = request.Div;
-            existing.PhoneNo = request.PhoneNo;
-            existing.Address = request.Address;
-            existing.EmailAddress = request.EmailAddress;
-            existing.UserId = request.UserId;
-            existing.UpdatedAt = DateTime.UtcNow;
-
-            await _context.SaveChangesAsync();
-            return ResultModel.Updated(_mapper.Map<StudentResponse>(existing));
-
-            }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                // Optionally log the exception
                 throw;
             }
         }

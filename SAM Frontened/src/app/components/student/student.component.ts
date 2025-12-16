@@ -17,16 +17,13 @@ export class StudentComponent implements OnInit {
   filteredStudents: Student[] = [];
   error = '';
 
-  // FILTER
   filterType: 'name' | 'class' | 'div' | '' = '';
   filterValue = '';
 
-  // OPTIONS
   nameList: string[] = [];
   classList: string[] = [];
   divList: string[] = [];
 
-  // EDIT
   isEditModalOpen = false;
   selectedStudent: Student | null = null;
 
@@ -36,6 +33,7 @@ export class StudentComponent implements OnInit {
     this.loadStudents();
   }
 
+  // LOAD ALL STUDENTS
   loadStudents() {
     this.studentService.getAllStudents().subscribe({
       next: (res) => {
@@ -50,7 +48,7 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  /** SEARCH */
+  // FILTER STUDENTS
   applyFilter() {
     if (!this.filterType || !this.filterValue) {
       this.filteredStudents = this.students;
@@ -58,15 +56,9 @@ export class StudentComponent implements OnInit {
     }
 
     this.filteredStudents = this.students.filter(s => {
-      if (this.filterType === 'name') {
-        return s.studentName === this.filterValue;
-      }
-      if (this.filterType === 'class') {
-        return s.class === this.filterValue;
-      }
-      if (this.filterType === 'div') {
-        return s.div === this.filterValue;
-      }
+      if (this.filterType === 'name') return s.studentName === this.filterValue;
+      if (this.filterType === 'class') return s.class === this.filterValue;
+      if (this.filterType === 'div') return s.div === this.filterValue;
       return true;
     });
   }
@@ -77,9 +69,9 @@ export class StudentComponent implements OnInit {
     this.filteredStudents = this.students;
   }
 
-  /** EDIT */
+  // OPEN EDIT MODAL
   openEdit(student: Student) {
-    this.selectedStudent = { ...student };
+    this.selectedStudent = { ...student }; // copy student
     this.isEditModalOpen = true;
   }
 
@@ -88,24 +80,58 @@ export class StudentComponent implements OnInit {
     this.selectedStudent = null;
   }
 
+  // SAVE EDITED STUDENT
   saveEdit() {
     if (!this.selectedStudent) return;
 
-    this.studentService.addOrUpdateUser(this.selectedStudent).subscribe({
+    // REQUIRED FIELDS CHECK
+    if (
+      !this.selectedStudent.studentName ||
+      !this.selectedStudent.rollno ||
+      !this.selectedStudent.class ||
+      !this.selectedStudent.div
+    ) {
+      alert('Please fill all required fields');
+      return;
+    }
+
+    // SEND PAYLOAD (keep userId)
+    this.studentService.addOrUpdateStudent(this.selectedStudent, false).subscribe({
       next: () => {
-        alert('Student updated');
+        alert('Student updated successfully');
         this.closeEdit();
         this.loadStudents();
+      },
+      error: err => {
+        console.error('Error while updating student:', err);
+        alert('Update failed. Make sure UserId exists.');
       }
     });
   }
 
-  /** STATUS */
+  // TOGGLE ACTIVE/INACTIVE STATUS
   toggleStatus(student: Student) {
-    const updated = { ...student, isActive: !student.isActive };
+    if (!student.userId) {
+      alert('faild to update');
+      return;
+    }
 
-    this.studentService.addOrUpdateUser(updated).subscribe({
-      next: () => this.loadStudents()
+    const updatedStudent: Student = {
+      ...student,
+      isActive: !student.isActive
+    };
+
+    this.studentService.addOrUpdateStudent(updatedStudent, false).subscribe({
+      next: () => this.loadStudents(),
+      error: err => console.error('Error toggling status:', err)
+    });
+  }
+
+  // SOFT DELETE STUDENT
+  deleteStudent(studentId: number) {
+    this.studentService.deleteStudent(studentId).subscribe({
+      next: () => this.loadStudents(),
+      error: err => console.error('Error deleting student:', err)
     });
   }
 }

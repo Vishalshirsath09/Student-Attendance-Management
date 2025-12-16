@@ -160,3 +160,18 @@ h2 {
   font-size: 20px;
   cursor: pointer;
 }
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.edit-icon span {
+  font-size: 20px;
+  color: #ff9800;
+}
+
+.edit-icon:hover span {
+  color: #e65100;
+}

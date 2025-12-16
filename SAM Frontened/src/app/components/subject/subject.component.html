@@ -4,6 +4,15 @@
   <div class="header-row">
     <h2>All Subjects</h2>
 
+    <!-- ADD SUBJECT ICON -->
+    <button
+      class="icon-btn add-icon"
+      (click)="openAddSubject()"
+      title="Add Subject">
+      <span class="material-icons">add</span>
+    </button>
+
+    <!-- FILTER BAR -->
     <div class="filter-box">
       <select [(ngModel)]="filterType" (change)="filterValue=''">
         <option value="">Select Filter</option>
@@ -26,8 +35,10 @@
     </div>
   </div>
 
+  <!-- ERROR -->
   <div *ngIf="error" class="error">{{ error }}</div>
 
+  <!-- SUBJECT TABLE -->
   <table *ngIf="filteredSubjects.length" class="subject-table">
     <thead>
       <tr>
@@ -35,7 +46,7 @@
         <th>Subject Code</th>
         <th>Teacher</th>
         <th>Status</th>
-        <th style="width:90px">Action</th>
+        <th style="width: 90px;">Action</th>
       </tr>
     </thead>
 
@@ -44,6 +55,7 @@
         <td>{{ s.subjectName }}</td>
         <td>{{ s.subjectCode }}</td>
         <td>{{ s.teacherName || 'Not Assigned' }}</td>
+
         <td>
           <span [class.active]="s.isActive" [class.inactive]="!s.isActive">
             {{ s.isActive ? 'Active' : 'Inactive' }}
@@ -52,6 +64,7 @@
             {{ s.isActive ? 'Deactivate' : 'Activate' }}
           </button>
         </td>
+
         <td>
           <button class="edit-btn" (click)="openEdit(s)">Edit</button>
         </td>
@@ -59,9 +72,11 @@
     </tbody>
   </table>
 
+  <!-- NO DATA -->
   <div *ngIf="!filteredSubjects.length && !error" class="no-data">
     No subjects found
   </div>
+
 </div>
 
 <!-- EDIT MODAL -->
@@ -78,6 +93,7 @@
         placeholder="Subject Name"
         required
       />
+
       <input
         [(ngModel)]="selectedSubject.subjectCode"
         name="subjectCode"
@@ -85,7 +101,6 @@
         required
       />
 
-      <!-- TEACHER DROPDOWN -->
       <select [(ngModel)]="selectedSubject.teacherId" name="teacherId">
         <option [ngValue]="null">Select Teacher</option>
         <option *ngFor="let t of teachers" [ngValue]="t.teacherId">

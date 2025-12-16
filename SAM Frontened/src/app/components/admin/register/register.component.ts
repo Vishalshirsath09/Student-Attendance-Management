@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { User } from '../../../models/user';
 import { Student } from '../../../models/student';
 import { Teacher } from '../../../models/teacher';
+
 import { StudentService } from '../../../services/student.service';
-
-
 
 @Component({
   selector: 'app-register',
@@ -17,7 +17,7 @@ import { StudentService } from '../../../services/student.service';
 })
 export class RegistrationComponent {
 
-  constructor(private userService: StudentService) {}
+  constructor(private studentService: StudentService) {}
 
   user: User = {
     username: '',
@@ -27,6 +27,7 @@ export class RegistrationComponent {
   };
 
   student: Student = {
+    studentId: 0,
     studentName: '',
     rollno: 0,
     class: '',
@@ -34,76 +35,52 @@ export class RegistrationComponent {
     phoneNo: '',
     address: '',
     emailAddress: '',
-    isActive: undefined
+    isActive: true
   };
 
   teacher: Teacher = {
+    teacherId: 0,
     teacherName: '',
     phoneNo: '',
     emailAddress: '',
     address: '',
-    qualification:'',
+    qualification: '',
     experience: 0,
-    isActive: undefined
+    isActive: true
   };
 
   register() {
 
-    let payload: any;
-
     if (this.user.role === 'Student') {
-      payload = {
-        username: this.user.username,
-        password: this.user.password,
-        role: this.user.role,
-        fullName: this.user.fullName,
 
-        // FLAT JSON FOR STUDENT
+      const payload: Student = {
+        studentId: 0, // New student
         studentName: this.student.studentName,
         rollno: this.student.rollno,
         class: this.student.class,
         div: this.student.div,
         phoneNo: this.student.phoneNo,
         emailAddress: this.student.emailAddress,
-        address: this.student.address
+        address: this.student.address,
+        isActive: true
       };
-    } 
 
-    else if (this.user.role === 'Teacher') {
-      payload = {
-        username: this.user.username,
-        password: this.user.password,
-        role: this.user.role,
-        fullName: this.user.fullName,
+      // ✅ Pass `true` because this is a new student
+      this.studentService.addOrUpdateStudent(payload, true).subscribe({
+        next: (res: any) => {
+          alert('Student registered successfully');
+          console.log(res);
+        },
+        error: (err: any) => {
+          alert('Student registration failed');
+          console.error(err);
+        }
+      });
 
-        // FLAT JSON FOR TEACHER
-        teacherName: this.teacher.teacherName,
-        phoneNo: this.teacher.phoneNo,
-        emailAddress: this.teacher.emailAddress,
-        address: this.teacher.address,
-        qulification:this.teacher.qualification,
-        experience: this.teacher.experience,
-
-      };
-    } 
-    
-    else {
+    } else if (this.user.role === 'Teacher') {
+      alert('Teacher registration API not connected yet');
+    } else {
       alert('Please select a role');
-      return;
     }
-
-    console.log("Payload sent:", payload);
-
-  this.userService.addOrUpdateUser(payload).subscribe({
-  next: (response: any) => {
-    alert("Registration Successful");
-    console.log("API Response:", response);
-  },
-  error: (error: any) => {
-    alert("Registration Failed");
-    console.error(error);
-  }
-});
-
   }
 }
